@@ -1,13 +1,21 @@
-variable "access_key" {}
+variable "aws_access_key" {}
 
-variable "secret_key" {}
+variable "aws_secret_key" {}
 
-variable "region" {
-  default = "us-east-1"
+variable "aws_region" {
+  default = "eu-west-1"
 }
 
 variable "ami_id" {
-	default = "ami-0ac019f4fcb7cb7e6"
+	default = "ami-06358f49b5839867c"
+}
+
+variable "key_name" {
+	default = "notebook"
+}
+
+variable "pri_keypath" {
+  default = "~/.ssh/id_rsa"
 }
 
 variable "instance_type" {

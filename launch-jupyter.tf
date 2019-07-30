@@ -1,7 +1,7 @@
 provider "aws" {
-  access_key = "${var.access_key}"
-  secret_key = "${var.secret_key}"
-  region     = "${var.region}"
+  access_key = "${var.aws_access_key}"
+  secret_key = "${var.aws_secret_key}"
+  region     = "${var.aws_region}"
 }
 
 # Allow incoming and outgoing traffic.
@@ -28,9 +28,22 @@ resource "aws_security_group" "allow_all" {
 resource "aws_instance" "jupyterhub" {
   ami           = "${var.ami_id}"
   instance_type = "${var.instance_type}"
-  tags {
-    Name = "jupyterhub"
+  key_name = "notebook"
+  
+  connection {
+    type = "ssh"
+    //# The default username for  AMI
+    user = "ubuntu"
+    key_name   = "${var.key_name}"
+
+   // # The path to your keyfile
+    private_key = "${var.pri_keypath}"
   }
+  
+
+  #tags {
+  #  Name = "jupyterhub"
+  #}
 
 # Load JupyterHub on the instance.
   user_data = <<EOF
